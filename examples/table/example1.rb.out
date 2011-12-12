@@ -1,0 +1,9 @@
+\begin{table}
+  \begin{tabular}{ccc}
+    & Height & Weight \\
+    \hline
+    Person 1 & 156 cm & 55 kg \\
+    Person 2 & 183 cm & 62 kg \\
+    \hline
+  \end{tabular}
+\end{table}
