@@ -26,7 +26,16 @@ require 'rake/clean'
 require 'rake/rdoctask'
 require 'rake/testtask'
 require 'rake/gempackagetask'
+require 'fileutils'
+include FileUtils
 
+
+def have_min_ruby_version(min_version)
+    return (RUBY_VERSION.split('.') <=> min_version.split('.')) >= 0
+end
+        
+        
+raise "Need at least Ruby version 1.8.7" unless have_min_ruby_version("1.8.7")
 
 
 #----------------
@@ -84,13 +93,23 @@ end
 #----------------
 # Documentation
 #++++++++++++++++
-Rake::RDocTask.new do |t|
-  t.main = "lib/latex_tools.rb"
-  t.rdoc_files.include("lib/**/*.rb")
-  t.rdoc_dir = 'doc/rdoc/' + spec.version.to_s
-end
+# Require at least version 1.9.0 to generate rdoc, so that we get darkfish output :-) by default
+if(have_min_ruby_version("1.9.0"))
+   Rake::RDocTask.new do |t|
+       t.main = "lib/latex_tools.rb"
+       t.rdoc_files.include("lib/**/*.rb")
+       t.rdoc_dir = 'doc/rdoc/' + spec.version.to_s
+   end
 
-task :upload_doc => :rdoc do
-  `rm -r doc/rdoc/current`
-  `cp doc/rdoc/#{spec.version.to_s} doc/rdoc/current`
+   task :upload_doc => :rdoc do
+       rm_r Dir.glob("website/*")
+       cp_r Dir.glob("doc/rdoc/" + spec.version.to_s + "/*"), "website"
+       cd "website"
+       `git add .`
+       `git commit -m "Version #{spec.version.to_s} documentation update"`
+       `git push origin gh-pages`
+       cd ".."
+   end
+else
+  puts "Note:  Ruby version 1.9.0 or greater is required to build rdoc."
 end
