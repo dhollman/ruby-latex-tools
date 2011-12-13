@@ -89,3 +89,8 @@ Rake::RDocTask.new do |t|
   t.rdoc_files.include("lib/**/*.rb")
   t.rdoc_dir = 'doc/rdoc/' + spec.version.to_s
 end
+
+task :upload_doc => :rdoc do
+  `rm -r doc/rdoc/current`
+  `cp doc/rdoc/#{spec.version.to_s} doc/rdoc/current`
+end
