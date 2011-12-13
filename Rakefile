@@ -44,6 +44,7 @@ spec = Gem::Specification.new do |s|
     s.files = %w(LICENSE README Rakefile) + Dir.glob("{lib,test,examples}/**/*")
     s.require_path = "lib"
     s.test_files = Dir.glob("{test}/**/*")
+    s.homepage = "http://github.com/dhollman/ruby-latex-tools"
 end
 
 Rake::GemPackageTask.new(spec) do |p|
@@ -51,7 +52,9 @@ Rake::GemPackageTask.new(spec) do |p|
     p.need_zip = true
 end
 
-
+task :upload => :gem do
+  `gem push #{Dir.glob("pkg/latex-tools*.gem")}`
+end
 
 #----------------
 # Testing
@@ -82,7 +85,7 @@ end
 # Documentation
 #++++++++++++++++
 Rake::RDocTask.new do |t|
-  t.main = "README"
-  t.rdoc_files.include("README", "lib/**/*.rb")
-  t.rdoc_dir = 'doc/rdoc'
+  t.main = "lib/latex_tools.rb"
+  t.rdoc_files.include("lib/**/*.rb")
+  t.rdoc_dir = 'doc/rdoc/' + spec.version.to_s
 end

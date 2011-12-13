@@ -1,22 +1,32 @@
+# --
+# Copyright (c) 2011-2012 David Hollman
+# This file is part of the LatexTools rubygem.
+#
+# The LatexTools rubygem is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# The LatexTools rubygem is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Lesser Public License for more details.
+#
+# You should have received a copy of the GNU Lesser Public License
+# along with the LatexTools rubygem.  If not, see <http://www.gnu.org/licenses/>.
+# ++
+
 
 require 'forwardable'
 
-#---
-#TODO Document this old thing
-#+++
+#--
+#TODO Document this whole thing
+#++
 
 ##
-# The +LatexTools+ module wraps everything in this package.
-# For convenience of use (i.e. unless you have a good reason not to do so),
-# you should include the following line at the beginning of your source code:
-#   include LatexTools
-#
-# Not doing so will result in much more verbose and much harder to read code, which
-# is not how this module was intended to be used.  For instance, when the module is
-# included properly, use of the LatexTable class becomes quite clean and "c++ like":
-#   :include: examples/table/example1.rb
-# (See the LatexTable class documentation for more.)
-#
+#--
+# (This module is documented in latex_tools.rb)
+#++
 module LatexTools
 
 
@@ -546,7 +556,6 @@ module LatexTools
     end
   end
   alias :multicol :multicolumn
-
 
   def fill_to_end(alignment_or_content, content = nil)
     if(content.nil?)
